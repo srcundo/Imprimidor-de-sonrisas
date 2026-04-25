@@ -117,7 +117,7 @@
     <svg id="avatarSvg" width="160" height="220" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 8px 24px #0008)">
 
       <!-- cuello primero (corto, pegado a la cabeza) -->
-      <rect id="av-neck" x="69" y="118" width="22" height="22" rx="4" fill="#d4c9b8"/>
+      <rect id="av-neck" x="69" y="118" width="22" height="40" rx="4" fill="#d4c9b8"/>
 
       <!-- TORSO compacto pero arranca en y=138 (justo donde termina el cuello) -->
       <path id="av-body"
@@ -305,7 +305,7 @@
     <!-- ══ TU AVATAR — derecha ══ -->
     <g id="ucAvatar">
       <!-- cuello primero (corto, pegado a la cabeza) -->
-      <rect id="uc-neck" x="292" y="230" width="16" height="20" rx="3" fill="#d4c9b8"/>
+      <rect id="uc-neck" x="292" y="230" width="16" height="36" rx="3" fill="#d4c9b8"/>
       <!-- torso encima, sube hasta y=246 para tapar la base del cuello -->
       <path id="uc-body"
         d="M248 330 C248 308 252 280 268 260 C278 254 288 248 300 246
@@ -356,7 +356,7 @@
     <ellipse cx="150" cy="336" rx="80" ry="4" fill="#00000033"/>
 
     <!-- cuello primero (corto, pegado a la cabeza) -->
-    <rect id="res-neck" x="141" y="192" width="18" height="22" rx="3" fill="#d4c9b8"/>
+    <rect id="res-neck" x="141" y="192" width="18" height="40" rx="3" fill="#d4c9b8"/>
 
     <!-- TORSO compacto pero arranca en y=212 (donde termina el cuello) -->
     <path id="res-body"
@@ -443,7 +443,7 @@
     </a>
   </div>
   <p style="font-size:12px;color:#9abfaa;text-align:center;max-width:380px;margin-top:14px;line-height:1.6;letter-spacing:1px">
-    Si querés, compartime tu sonrisa por mensaje directo
+    Si querés, compartí tu sonrisa y etiquetame en
     <a href="https://www.instagram.com/srcundo" target="_blank" rel="noopener noreferrer" style="color:#e0d0a8;text-decoration:none;border-bottom:1px dotted #e0d0a880">@srcundo</a>.<br>
     <em style="color:#8fad98">La resubo a las historias.</em>
   </p>
@@ -1019,32 +1019,21 @@ function getSmile() {
     nm.style.opacity = '1';
     // Subtítulo aleatorio
     const subs = [
-      '✦  nadie tiene el derecho de robartela  ✦',
+      '✦  todo va a estar bien  ✦',
       '✦  guardala donde necesites  ✦',
+      '✦  en una vida de mariposas decidiste ser una paloma  ✦',
+      '✦  debajo de la sonrisa espero tu sonrisa  ✦',
+      '✦  el imprimidor te ama  ✦',
+      '✦  te queda hermosa  ✦',
       '✦  es solo tuya  ✦',
       '✦  que dure lo que tenga que durar  ✦',
-      '✦  asi te querian ver  ✦',
-      '✦  que comoda esta la falsedad  ✦',
-      '✦  al fin estas presentable  ✦',
-      '✦  esto es más real que nunca  ✦',
-      '✦  te queda hermosa  ✦',
-      '✦  que tus dientes torcidos no te impidan sonrier  ✦',
-      '✦  es como si te hubieras usado brackets ✦',
-      '✦  en una vida llena de mariposas decidiste ser paloma  ✦',
-      '✦  es contagiosa  ✦',
-      '✦  ni se nota que la necesitas  ✦',
-      '✦  estas brillando como nunca  ✦',
-      '✦  al menos por un ratito  ✦',
-      '✦  sonrié para que nadie mire más alla  ✦',
-      '✦  ya estas para la fiesta de disfraces  ✦',
-      '✦  que bien tevez  ✦',
-      '✦  si esto es felicidad, entonces tiene tu nombre  ✦',
+      '✦  es la sonrisa más hermosa  ✦',
+      '✦  es más que suficiente por el momento ✦',
+      '✦  eres valioso, no lo olvides  ✦',
+      '✦  ahora tus torcidos dientes no son un impedimento para sonreir  ✦',
       '✦  no estás solo  ✦',
-      '✦  incluso así, seguís valiendo  ✦',
-      '✦  el imprimidor de sonrisas gusta de vos  ✦',
-      '✦  debajo de la sonrisa espero tu sonrisa  ✦',
       '✦  volvé cuando quieras  ✦',
-      '✦  vales mucho, no lo olvides  ✦'
+      '✦  acá vamos a estar  ✦'
     ];
     sb.textContent = subs[Math.floor(Math.random() * subs.length)];
     sb.style.opacity = '1';
@@ -1083,6 +1072,23 @@ function reset() {
   inp.value = ''; inp.placeholder = '¿Cómo te llamás?'; inp.classList.remove('error');
   goTo('s-welcome');
 }
+/* ── Detectar navegadores in-app (Instagram, Facebook, TikTok) ─── */
+function isInAppBrowser() {
+  const ua = navigator.userAgent || '';
+  return /Instagram|FBAN|FBAV|FB_IAB|Line|TikTok|MicroMessenger/i.test(ua);
+}
+
+/* ── Helper: ajustar font-size para que el texto entre en un ancho dado ── */
+function fitFontSize(ctx, text, maxWidth, baseFontSize, fontFamily) {
+  let size = baseFontSize;
+  ctx.font = `bold ${size}px ${fontFamily}`;
+  while (ctx.measureText(text).width > maxWidth && size > 14) {
+    size -= 2;
+    ctx.font = `bold ${size}px ${fontFamily}`;
+  }
+  return size;
+}
+
 /* ── Descargar la sonrisa como PNG ─────────────────────────────────
    Toma el SVG del resultado, lo serializa, lo dibuja en un canvas y
    exporta como PNG. Incluye fondo verde y el nombre/subtítulo abajo. */
@@ -1094,13 +1100,19 @@ async function downloadSmile() {
 
   try {
     const svgEl = document.querySelector('#s-result svg');
-    const name = document.getElementById('resName').textContent || 'tu sonrisa';
-    const sub  = document.getElementById('resSub').textContent  || '';
+    // IMPORTANTE: leer av.name directo (no del DOM) por si el usuario
+    // aprieta GUARDAR antes de que el setTimeout de getSmile() haya
+    // escrito el nombre en pantalla.
+    const userName = (av.name || 'tu sonrisa').trim();
+    const nameText = `${userName} está bien ahora`;
+    let sub = document.getElementById('resSub').textContent;
+    // Si todavía no apareció el subtítulo, ponemos uno por defecto
+    if (!sub || !sub.trim()) {
+      sub = '✦  todo va a estar bien  ✦';
+    }
 
     // Clonamos el SVG para no tocar el del DOM
     const svgClone = svgEl.cloneNode(true);
-
-    // Asegurar namespace XML (sin esto algunos navegadores fallan)
     svgClone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
     svgClone.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
 
@@ -1116,69 +1128,98 @@ async function downloadSmile() {
       sparklesClone.setAttribute('opacity', '1');
     }
 
-    // Tamaño explícito (importante para que el navegador no falle al cargar el SVG)
     svgClone.setAttribute('width', '300');
     svgClone.setAttribute('height', '340');
 
-    // Serializar y codificar como base64 (más confiable que Blob URL en algunos navegadores)
     let svgString = new XMLSerializer().serializeToString(svgClone);
-    // Escapar caracteres no-ASCII por las dudas (símbolos como ✦ a veces dan problemas)
-    // unescape(encodeURIComponent(...)) convierte UTF-8 a Latin1 para que btoa funcione
     const svgBase64 = btoa(unescape(encodeURIComponent(svgString)));
     const dataUrl = 'data:image/svg+xml;base64,' + svgBase64;
 
-    // Cargar la imagen
     const img = new Image();
     img.crossOrigin = 'anonymous';
     await new Promise((resolve, reject) => {
       img.onload = () => resolve();
-      img.onerror = (e) => reject(new Error('No se pudo cargar el SVG como imagen'));
+      img.onerror = () => reject(new Error('No se pudo cargar el SVG como imagen'));
       img.src = dataUrl;
     });
 
-    // Canvas final 600x800 con fondo verde y texto debajo
+    // Canvas final 600x800
     const W = 600, H = 800;
     const canvas = document.createElement('canvas');
     canvas.width = W;
     canvas.height = H;
     const ctx = canvas.getContext('2d');
 
-    // Fondo verde
     ctx.fillStyle = '#3a5446';
     ctx.fillRect(0, 0, W, H);
 
-    // Dibujamos el SVG centrado en la parte superior
     const svgW = 500, svgH = 567;
     const svgX = (W - svgW) / 2;
     const svgY = 30;
     ctx.drawImage(img, svgX, svgY, svgW, svgH);
 
-    // Texto: nombre principal con sombra
+    // Texto: nombre principal con font-size adaptativo
     ctx.textAlign = 'center';
     ctx.fillStyle = '#e0d0a8';
-    ctx.font = 'bold 38px sans-serif';
     ctx.shadowColor = 'rgba(0,0,0,0.4)';
     ctx.shadowOffsetX = 3;
     ctx.shadowOffsetY = 3;
     ctx.shadowBlur = 0;
-    ctx.fillText(name.toUpperCase(), W/2, svgY + svgH + 50);
+    // Adaptar tamaño del font para que entre en ~540px (con padding)
+    const maxNameWidth = 540;
+    const nameUpper = nameText.toUpperCase();
+    fitFontSize(ctx, nameUpper, maxNameWidth, 38, 'sans-serif');
+    ctx.fillText(nameUpper, W/2, svgY + svgH + 50);
 
-    // Subtítulo
+    // Subtítulo (también adaptativo por las dudas)
     ctx.shadowColor = 'transparent';
     ctx.fillStyle = '#9abfaa';
-    ctx.font = '16px monospace';
+    let subSize = 16;
+    ctx.font = `${subSize}px monospace`;
+    while (ctx.measureText(sub).width > 560 && subSize > 10) {
+      subSize -= 1;
+      ctx.font = `${subSize}px monospace`;
+    }
     ctx.fillText(sub, W/2, svgY + svgH + 85);
 
-    // Marca al pie
     ctx.fillStyle = '#ffffff80';
     ctx.font = '12px monospace';
     ctx.fillText('IMPRIMIDOR DE SONRISAS  -  @srcundo', W/2, H - 22);
 
-    // Descargar
     const safeName = (av.name || 'sonrisa').toLowerCase().replace(/[^a-z0-9]/gi, '-');
+    const fileName = `imprimidor-de-sonrisas-${safeName}.png`;
+    const dataUrlPng = canvas.toDataURL('image/png');
+
+    // Si estamos en navegador in-app (Instagram, Facebook, TikTok),
+    // las descargas directas están bloqueadas. Abrimos la imagen en
+    // una pestaña/ventana nueva para que el usuario la guarde manualmente.
+    if (isInAppBrowser()) {
+      // Convertimos data URL a Blob URL (mejor compatibilidad para abrir en nueva pestaña)
+      const byteString = atob(dataUrlPng.split(',')[1]);
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
+      const blob = new Blob([ab], { type: 'image/png' });
+      const blobUrl = URL.createObjectURL(blob);
+      // Abrir en pestaña nueva
+      const opened = window.open(blobUrl, '_blank');
+      // Mostrar instrucciones al usuario
+      btn.innerHTML = 'Mantené ↓ y "Guardar imagen"';
+      setTimeout(() => {
+        btn.innerHTML = originalContent;
+        btn.disabled = false;
+        // Si window.open fue bloqueado, mostramos un mensaje más claro
+        if (!opened) {
+          alert('Tu navegador bloqueó la descarga.\n\nPara guardar la imagen:\n1. Abrí esta página en Safari o Chrome (los 3 puntitos arriba a la derecha → "Abrir en navegador")\n2. Volvé a apretar GUARDAR');
+        }
+      }, 3000);
+      return;
+    }
+
+    // Navegador normal: descarga directa
     const link = document.createElement('a');
-    link.download = `imprimidor-de-sonrisas-${safeName}.png`;
-    link.href = canvas.toDataURL('image/png');
+    link.download = fileName;
+    link.href = dataUrlPng;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
