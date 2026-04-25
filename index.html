@@ -23,6 +23,11 @@
   .btn-ghost { background:transparent; color:var(--muted); border:1px solid #ffffff25; padding:8px 20px; font-family:'Special Elite',monospace; font-size:13px; letter-spacing:2px; cursor:pointer; transition:all .12s; border-radius:2px; }
   .btn-ghost:hover { color:var(--accent); border-color:#ffffff50; }
   .btn-back { position:absolute; top:18px; left:18px; }
+  /* En pantallas chicas (celular), las pantallas con btn-back necesitan más
+     padding superior para que el título no quede pegado al botón. */
+  @media (max-width: 600px) {
+    #s-avatar, #s-counter { padding-top: 70px; justify-content: flex-start; }
+  }
   .big-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(44px,9vw,80px); letter-spacing:4px; line-height:1; text-align:center; color:var(--accent); text-shadow:3px 3px 0 #0005; animation:wobble 4s ease-in-out infinite; }
   @keyframes wobble { 0%,100%{transform:rotate(-0.8deg)} 50%{transform:rotate(0.8deg)} }
   .sub-title { font-size:11px; letter-spacing:5px; text-transform:uppercase; color:var(--muted); text-align:center; margin-top:-10px; }
@@ -50,6 +55,19 @@
   @keyframes ptfly { 0%{opacity:0;transform:translateY(0) scale(0)} 40%{opacity:1;transform:translateY(-60px) scale(1)} 100%{opacity:0;transform:translateY(-130px) scale(0.4)} }
   @keyframes reveal { from{opacity:0;transform:scale(0.4) rotate(-8deg)} to{opacity:1;transform:scale(1) rotate(0)} }
   @keyframes paperUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+  /* Papel saliendo de la impresora: arranca comprimido vertical desde abajo y se va estirando hacia arriba.
+     transform-origin: bottom hace que el papel salga "de adentro" creciendo hacia arriba. */
+  @keyframes paperOutOfPrinter {
+    0%   { opacity:0; transform: translateY(38px) scaleY(0.05); }
+    30%  { opacity:1; transform: translateY(28px) scaleY(0.3); }
+    100% { opacity:1; transform: translateY(0) scaleY(1); }
+  }
+  /* Papel del resultado: aparece con escala+leve rotación, como si lo recibieras de golpe */
+  @keyframes paperReceived {
+    0%   { opacity:0; transform: translateY(-12px) scale(0.7) rotate(-3deg); }
+    60%  { opacity:1; transform: translateY(2px) scale(1.05) rotate(1deg); }
+    100% { opacity:1; transform: translateY(0) scale(1) rotate(0); }
+  }
 </style>
 </head>
 <body>
@@ -126,8 +144,8 @@
       <!-- ojos grandes -->
       <ellipse cx="62" cy="74" rx="12" ry="14" fill="white"/>
       <ellipse cx="98" cy="74" rx="12" ry="14" fill="white"/>
-      <circle cx="64" cy="77" r="7" fill="#1a1a1a"/>
-      <circle cx="100" cy="77" r="7" fill="#1a1a1a"/>
+      <circle id="av-iris-l" cx="64" cy="77" r="7" fill="#1a1a1a"/>
+      <circle id="av-iris-r" cx="100" cy="77" r="7" fill="#1a1a1a"/>
       <circle cx="65.5" cy="75.5" r="2.2" fill="white"/>
       <circle cx="101.5" cy="75.5" r="2.2" fill="white"/>
       <!-- pestañas (femenino, se rellena por JS) -->
@@ -169,6 +187,16 @@
         </div>
       </div>
       <div class="opt-box">
+        <span class="opt-label">Color de ojos</span>
+        <div class="swatches">
+          <div class="swatch on"  style="background:#1a1a1a" onclick="setEye('#1a1a1a',this)"></div>
+          <div class="swatch"     style="background:#6b3a1f" onclick="setEye('#6b3a1f',this)"></div>
+          <div class="swatch"     style="background:#8c6d3a" onclick="setEye('#8c6d3a',this)"></div>
+          <div class="swatch"     style="background:#3a6a8c" onclick="setEye('#3a6a8c',this)"></div>
+          <div class="swatch"     style="background:#4a7a3a" onclick="setEye('#4a7a3a',this)"></div>
+        </div>
+      </div>
+      <div class="opt-box">
         <span class="opt-label">Estilo de pelo</span>
         <div class="tagbtns">
           <button class="tagbtn on" onclick="setHairStyle('long',this)">Largo</button>
@@ -178,7 +206,7 @@
           <button class="tagbtn"    onclick="setHairStyle('bald',this)">Sin pelo</button>
         </div>
       </div>
-      <div class="opt-box full">
+      <div class="opt-box">
         <span class="opt-label">Género</span>
         <div class="tagbtns">
           <button class="tagbtn on" onclick="setGender('m',this)">Masculino</button>
@@ -262,7 +290,7 @@
     <rect x="34" y="152" width="66" height="11" rx="2" fill="#6a6860"/>
 
     <!-- papel saliendo (animado) -->
-    <g id="cPaper" style="opacity:0;transition:opacity .6s ease">
+    <g id="cPaper" style="opacity:0;transform-box:fill-box;transform-origin:50% 100%">
       <rect x="44" y="116" width="46" height="38" rx="2" fill="#ede8dc" stroke="#ccc8b8" stroke-width="0.8"/>
       <path d="M49 127 Q67 123 90 127" stroke="#c44040" stroke-width="2" fill="none" stroke-linecap="round"/>
       <rect x="49.5" y="128" width="5.5" height="7" rx="0.5" fill="#f5f2e8" stroke="#d4d0c0" stroke-width="0.5"/>
@@ -295,8 +323,8 @@
         fill="#1a1a1a"/>
       <ellipse cx="288" cy="193" rx="10" ry="12" fill="white"/>
       <ellipse cx="312" cy="193" rx="10" ry="12" fill="white"/>
-      <circle cx="290" cy="196" r="6" fill="#1a1a1a"/>
-      <circle cx="314" cy="196" r="6" fill="#1a1a1a"/>
+      <circle id="uc-iris-l" cx="290" cy="196" r="6" fill="#1a1a1a"/>
+      <circle id="uc-iris-r" cx="314" cy="196" r="6" fill="#1a1a1a"/>
       <circle cx="291.5" cy="194.5" r="1.8" fill="white"/>
       <circle cx="315.5" cy="194.5" r="1.8" fill="white"/>
       <g id="uc-lashes"></g>
@@ -355,8 +383,8 @@
     <!-- ojos -->
     <ellipse cx="134" cy="143" rx="13" ry="15" fill="white"/>
     <ellipse cx="166" cy="143" rx="13" ry="15" fill="white"/>
-    <circle cx="136" cy="146" r="8" fill="#1a1a1a"/>
-    <circle cx="168" cy="146" r="8" fill="#1a1a1a"/>
+    <circle id="res-iris-l" cx="136" cy="146" r="8" fill="#1a1a1a"/>
+    <circle id="res-iris-r" cx="168" cy="146" r="8" fill="#1a1a1a"/>
     <circle cx="138" cy="144" r="2.5" fill="white"/>
     <circle cx="170" cy="144" r="2.5" fill="white"/>
     <g id="res-lashes"></g>
@@ -365,7 +393,7 @@
     <path id="res-real-mouth" d="M136 169 Q150 162 164 169" stroke="#7a4030" stroke-width="2" fill="none" stroke-linecap="round"/>
 
     <!-- ══ SÓLO EL PAPEL — sin brazo ni mano. Centrado sobre la boca. ══ -->
-    <g id="resPaper" style="opacity:0;transition:opacity .7s ease">
+    <g id="resPaper" style="opacity:0;transform-box:fill-box;transform-origin:50% 50%">
       <rect x="108" y="160" width="84" height="40" rx="3" fill="#ede8dc" stroke="#ccc8b8" stroke-width="1"/>
       <path d="M114 172 Q150 167 186 172" stroke="#c44040" stroke-width="2" fill="none" stroke-linecap="round"/>
       <rect x="114" y="173" width="8"  height="10" rx="0.5" fill="#f5f2e8" stroke="#d4d0c0" stroke-width="0.5"/>
@@ -397,20 +425,34 @@
   </p>
   <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px">
     <button class="btn" onclick="reset()">← VOLVER AL INICIO</button>
+    <button class="btn" onclick="downloadSmile()" style="display:inline-flex;align-items:center;gap:6px">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      GUARDAR
+    </button>
     <a href="https://www.instagram.com/srcundo" target="_blank" rel="noopener noreferrer" class="btn" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;background:#e0d0a8;color:#1a1a1a">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
       </svg>
-      @SRCUNDO
+      SRCUNDO
     </a>
+  </div>
+  <p style="font-size:12px;color:#9abfaa;text-align:center;max-width:380px;margin-top:14px;line-height:1.6;letter-spacing:1px">
+    Si querés, compartime tu sonrisa por mensaje directo
+    <a href="https://www.instagram.com/srcundo" target="_blank" rel="noopener noreferrer" style="color:#e0d0a8;text-decoration:none;border-bottom:1px dotted #e0d0a880">@srcundo</a>.<br>
+    <em style="color:#8fad98">La resubo a las historias.</em>
+  </p>
   </div>
 </div>
 
 
 <script>
-const av = { skin:'#d4c9b8', shirt:'#8a3a2e', hair:'#1a1a1a', hairStyle:'long', gender:'m', name:'' };
+const av = { skin:'#d4c9b8', shirt:'#8a3a2e', hair:'#1a1a1a', eye:'#1a1a1a', hairStyle:'long', gender:'m', name:'' };
 
 function goTo(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -626,6 +668,12 @@ function setGender(g, el) {
   highlight(el);
 }
 function setHairColor(c,el) { av.hair=c;  setAttr('av-hair','fill',c); highlight(el); }
+function setEye(c, el) {
+  av.eye = c;
+  setAttr('av-iris-l','fill',c);
+  setAttr('av-iris-r','fill',c);
+  highlight(el);
+}
 
 /* ══════════════════════════════════════════════════════
    HAIR PATHS — Avatar preview (vb 160×220)
@@ -667,7 +715,7 @@ const hairAv = {
   ),
 
   // FLOGGER: una sola pieza que cubre toda la cabeza + mechón diagonal
-  // que tapa el ojo izquierdo. Sin huecos ni líneas de piel.
+  // que tapa el ojo izquierdo. Sin línea fina a la izquierda.
   flogger: (
     'M30 130 ' +
     'C28 110 28 88 30 70 ' +
@@ -677,8 +725,8 @@ const hairAv = {
     'C118 78 110 70 100 66 ' +
     'C92 64 84 64 76 68 ' +
     'C66 76 56 86 44 96 ' +
-    'L36 100 C32 102 30 102 28 100 ' +
-    'L30 130 Z'
+    'L36 100 ' +
+    'C32 102 30 108 30 130 Z'
   ),
 
   bald: ''
@@ -734,8 +782,7 @@ const hairCounter = {
     'C332 194.3 325.3 187.4 316.8 184 ' +
     'C310.1 182.3 303.4 182.3 296.6 185.7 ' +
     'C288.2 192.6 279.8 201.1 269.7 209.7 ' +
-    'L262.9 213.1 C259.6 214.9 257.9 214.9 256.2 213.1 ' +
-    'L257.9 238.9 Z'
+    'L262.9 213.1 C259.6 214.9 257.9 220 257.9 238.9 Z'
   ),
   bald: ''
 };
@@ -776,8 +823,7 @@ const hairRes = {
     'C194 145.7 184.7 136.6 173.2 132 ' +
     'C163.9 129.7 154.6 129.7 145.4 134.3 ' +
     'C133.8 143.4 122.2 154.9 108.3 166.3 ' +
-    'L99.1 170.9 C94.4 173.1 92.1 173.1 89.8 170.9 ' +
-    'L92.1 205.1 Z'
+    'L99.1 170.9 C94.4 173.1 92.1 180 92.1 205.1 Z'
   ),
   bald: ''
 };
@@ -897,6 +943,8 @@ function goToCounter() {
   setAttr('uc-body','fill', av.shirt);
   setAttr('uc-head','fill', av.skin);
   setAttr('uc-neck','fill', av.skin);
+  setAttr('uc-iris-l','fill', av.eye);
+  setAttr('uc-iris-r','fill', av.eye);
   applyShirtDetailCounter(av.shirt);
   applyLashesCounter();
 
@@ -913,7 +961,11 @@ function goToCounter() {
     `El imprimidor te mira con su sonrisa.<br><em>"Hola <strong>${n}</strong>. ¿Querés una sonrisa? Es gratis."</em>`;
 
   goTo('s-counter');
-  setTimeout(() => { document.getElementById('cPaper').style.opacity = '1'; }, 1000);
+  setTimeout(() => {
+    const p = document.getElementById('cPaper');
+    p.style.animation = 'paperOutOfPrinter 1.4s cubic-bezier(.22,1,.36,1) forwards';
+    p.style.opacity = '1';
+  }, 1000);
 }
 
 /* ── Volver desde avatar limpiando el estado de error ── */
@@ -926,7 +978,8 @@ function goBackFromAvatar() {
 
 /* ── Declinar la sonrisa (limpia el mostrador) ── */
 function declineSmile() {
-  document.getElementById('cPaper').style.opacity = '0';
+  const cp = document.getElementById('cPaper');
+  cp.style.animation = ''; cp.style.opacity = '0';
   reset();
 }
 
@@ -937,6 +990,8 @@ function getSmile() {
   setAttr('res-body','fill', av.shirt);
   setAttr('res-head','fill', av.skin);
   setAttr('res-neck','fill', av.skin);
+  setAttr('res-iris-l','fill', av.eye);
+  setAttr('res-iris-r','fill', av.eye);
   applyShirtDetailRes(av.shirt);
   applyLashesRes();
 
@@ -950,16 +1005,48 @@ function getSmile() {
 
   goTo('s-result');
   setTimeout(() => {
-    document.getElementById('resPaper').style.opacity = '1';
+    const p = document.getElementById('resPaper');
+    p.style.animation = 'paperReceived .9s cubic-bezier(.34,1.56,.64,1) forwards';
+    p.style.opacity = '1';
   }, 350);
   setTimeout(() => { document.getElementById('sparkles').style.opacity = '1'; }, 900);
   setTimeout(() => {
     const nm = document.getElementById('resName');
     const sb = document.getElementById('resSub');
+    // Frase principal: siempre la misma
     nm.textContent = `${n} está bien ahora`;
     nm.style.animation = 'reveal .8s cubic-bezier(.34,1.56,.64,1) forwards';
     nm.style.opacity = '1';
-    sb.textContent = '✦  todo va a estar bien  ✦';
+    // Subtítulo aleatorio
+    const subs = [
+      '✦  nadie tiene el derecho de robartela  ✦',
+      '✦  guardala donde necesites  ✦',
+      '✦  es solo tuya  ✦',
+      '✦  que dure lo que tenga que durar  ✦',
+      '✦  asi te querian ver  ✦',
+      '✦  que comoda esta la falsedad  ✦',
+      '✦  al fin estas presentable  ✦',
+      '✦  esto es más real que nunca  ✦',
+      '✦  te queda hermosa  ✦',
+      '✦  que tus dientes torcidos no te impidan sonrier  ✦',
+      '✦  es como si te hubieras usado brackets ✦',
+      '✦  en una vida llena de mariposas decidiste ser paloma  ✦',
+      '✦  es contagiosa  ✦',
+      '✦  ni se nota que la necesitas  ✦',
+      '✦  estas brillando como nunca  ✦',
+      '✦  al menos por un ratito  ✦',
+      '✦  sonrié para que nadie mire más alla  ✦',
+      '✦  ya estas para la fiesta de disfraces  ✦',
+      '✦  que bien tevez  ✦',
+      '✦  si esto es felicidad, entonces tiene tu nombre  ✦',
+      '✦  no estás solo  ✦',
+      '✦  incluso así, seguís valiendo  ✦',
+      '✦  el imprimidor de sonrisas gusta de vos  ✦',
+      '✦  debajo de la sonrisa espero tu sonrisa  ✦',
+      '✦  volvé cuando quieras  ✦',
+      '✦  vales mucho, no lo olvides  ✦'
+    ];
+    sb.textContent = subs[Math.floor(Math.random() * subs.length)];
     sb.style.opacity = '1';
     sb.style.transition = 'opacity .6s .3s ease';
     spawnParticles();
@@ -983,8 +1070,10 @@ function spawnParticles() {
 
 /* ── Reset ── */
 function reset() {
-  document.getElementById('cPaper').style.opacity   = '0';
-  document.getElementById('resPaper').style.opacity = '0';
+  const cp = document.getElementById('cPaper');
+  const rp = document.getElementById('resPaper');
+  cp.style.animation = ''; cp.style.opacity = '0';
+  rp.style.animation = ''; rp.style.opacity = '0';
   document.getElementById('sparkles').style.opacity = '0';
   const nm = document.getElementById('resName');
   nm.textContent = ''; nm.style.opacity = '0'; nm.style.animation = '';
@@ -993,6 +1082,120 @@ function reset() {
   const inp = document.getElementById('avatarName');
   inp.value = ''; inp.placeholder = '¿Cómo te llamás?'; inp.classList.remove('error');
   goTo('s-welcome');
+}
+/* ── Descargar la sonrisa como PNG ─────────────────────────────────
+   Toma el SVG del resultado, lo serializa, lo dibuja en un canvas y
+   exporta como PNG. Incluye fondo verde y el nombre/subtítulo abajo. */
+async function downloadSmile() {
+  const btn = event.currentTarget;
+  const originalContent = btn.innerHTML;
+  btn.innerHTML = 'Generando...';
+  btn.disabled = true;
+
+  try {
+    const svgEl = document.querySelector('#s-result svg');
+    const name = document.getElementById('resName').textContent || 'tu sonrisa';
+    const sub  = document.getElementById('resSub').textContent  || '';
+
+    // Clonamos el SVG para no tocar el del DOM
+    const svgClone = svgEl.cloneNode(true);
+
+    // Asegurar namespace XML (sin esto algunos navegadores fallan)
+    svgClone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    svgClone.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
+
+    // Restaurar papel y sparkles a opacity:1 sin animaciones ni transforms
+    const paperClone = svgClone.querySelector('#resPaper');
+    if (paperClone) {
+      paperClone.removeAttribute('style');
+      paperClone.setAttribute('opacity', '1');
+    }
+    const sparklesClone = svgClone.querySelector('#sparkles');
+    if (sparklesClone) {
+      sparklesClone.removeAttribute('style');
+      sparklesClone.setAttribute('opacity', '1');
+    }
+
+    // Tamaño explícito (importante para que el navegador no falle al cargar el SVG)
+    svgClone.setAttribute('width', '300');
+    svgClone.setAttribute('height', '340');
+
+    // Serializar y codificar como base64 (más confiable que Blob URL en algunos navegadores)
+    let svgString = new XMLSerializer().serializeToString(svgClone);
+    // Escapar caracteres no-ASCII por las dudas (símbolos como ✦ a veces dan problemas)
+    // unescape(encodeURIComponent(...)) convierte UTF-8 a Latin1 para que btoa funcione
+    const svgBase64 = btoa(unescape(encodeURIComponent(svgString)));
+    const dataUrl = 'data:image/svg+xml;base64,' + svgBase64;
+
+    // Cargar la imagen
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    await new Promise((resolve, reject) => {
+      img.onload = () => resolve();
+      img.onerror = (e) => reject(new Error('No se pudo cargar el SVG como imagen'));
+      img.src = dataUrl;
+    });
+
+    // Canvas final 600x800 con fondo verde y texto debajo
+    const W = 600, H = 800;
+    const canvas = document.createElement('canvas');
+    canvas.width = W;
+    canvas.height = H;
+    const ctx = canvas.getContext('2d');
+
+    // Fondo verde
+    ctx.fillStyle = '#3a5446';
+    ctx.fillRect(0, 0, W, H);
+
+    // Dibujamos el SVG centrado en la parte superior
+    const svgW = 500, svgH = 567;
+    const svgX = (W - svgW) / 2;
+    const svgY = 30;
+    ctx.drawImage(img, svgX, svgY, svgW, svgH);
+
+    // Texto: nombre principal con sombra
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#e0d0a8';
+    ctx.font = 'bold 38px sans-serif';
+    ctx.shadowColor = 'rgba(0,0,0,0.4)';
+    ctx.shadowOffsetX = 3;
+    ctx.shadowOffsetY = 3;
+    ctx.shadowBlur = 0;
+    ctx.fillText(name.toUpperCase(), W/2, svgY + svgH + 50);
+
+    // Subtítulo
+    ctx.shadowColor = 'transparent';
+    ctx.fillStyle = '#9abfaa';
+    ctx.font = '16px monospace';
+    ctx.fillText(sub, W/2, svgY + svgH + 85);
+
+    // Marca al pie
+    ctx.fillStyle = '#ffffff80';
+    ctx.font = '12px monospace';
+    ctx.fillText('IMPRIMIDOR DE SONRISAS  -  @srcundo', W/2, H - 22);
+
+    // Descargar
+    const safeName = (av.name || 'sonrisa').toLowerCase().replace(/[^a-z0-9]/gi, '-');
+    const link = document.createElement('a');
+    link.download = `imprimidor-de-sonrisas-${safeName}.png`;
+    link.href = canvas.toDataURL('image/png');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    btn.innerHTML = '✓ ¡Lista!';
+    setTimeout(() => {
+      btn.innerHTML = originalContent;
+      btn.disabled = false;
+    }, 1500);
+  } catch (err) {
+    console.error('Error al guardar:', err && err.message ? err.message : err);
+    btn.innerHTML = 'Error :(';
+    setTimeout(() => {
+      btn.innerHTML = originalContent;
+      btn.disabled = false;
+    }, 2000);
+  }
 }
 </script>
 </body>
