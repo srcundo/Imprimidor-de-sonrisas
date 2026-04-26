@@ -92,14 +92,14 @@
       <path d="M50 28 Q70 40 90 28" stroke="#c44040" stroke-width="2" fill="#c44040" fill-opacity="0.2" stroke-linecap="round"/>
     </g>
   </svg>
-  <div class="big-title">Imprimidor<br>de Sonrisas™</div>
-  <div class="sub-title">servicio emocional gratuito</div>
-  <p style="font-size:15px;line-height:1.9;color:#b0ceba;text-align:center;max-width:360px">
+  <div class="big-title" data-i18n-html="appTitle">Imprimidor<br>de Sonrisas™</div>
+  <div class="sub-title" data-i18n="subtitle">servicio emocional gratuito</div>
+  <p style="font-size:15px;line-height:1.9;color:#b0ceba;text-align:center;max-width:360px" data-i18n-html="welcomeMsg">
     ¿Hoy no te sale sonreír?<br>No hay problema.<br><em>Te imprimimos una.</em>
   </p>
-  <button class="btn" onclick="goTo('s-avatar')">CREAR MI AVATAR</button>
-  <p style="font-size:11px;color:#ffffff28;letter-spacing:2px">* sin cargo. el imprimidor es buena gente.</p>
-  <p style="font-size:10px;color:#ffffff40;letter-spacing:3px;margin-top:4px">desarrollado por <a href="https://www.instagram.com/srcundo" target="_blank" rel="noopener noreferrer" style="color:#ffffff70;text-decoration:none;font-weight:bold;border-bottom:1px dotted #ffffff40;transition:color .2s" onmouseover="this.style.color='#e0d0a8'" onmouseout="this.style.color='#ffffff70'">@srcundo</a></p>
+  <button class="btn" onclick="goTo('s-avatar')" data-i18n="btnCreate">CREAR MI AVATAR</button>
+  <p style="font-size:11px;color:#ffffff28;letter-spacing:2px" data-i18n="footerNote">* sin cargo. el imprimidor es buena gente.</p>
+  <p style="font-size:10px;color:#ffffff40;letter-spacing:3px;margin-top:4px"><span data-i18n="developedBy">desarrollado por</span> <a href="https://www.instagram.com/srcundo" target="_blank" rel="noopener noreferrer" style="color:#ffffff70;text-decoration:none;font-weight:bold;border-bottom:1px dotted #ffffff40;transition:color .2s" onmouseover="this.style.color='#e0d0a8'" onmouseout="this.style.color='#ffffff70'">@srcundo</a></p>
 </div>
 
 
@@ -111,8 +111,8 @@
   Cuello y=118..138
 -->
 <div class="screen" id="s-avatar">
-  <button class="btn-ghost btn-back" onclick="goBackFromAvatar()">← volver</button>
-  <div class="big-title" style="font-size:34px">Tu avatar</div>
+  <button class="btn-ghost btn-back" onclick="goBackFromAvatar()" data-i18n="btnBack">← volver</button>
+  <div class="big-title" style="font-size:34px" data-i18n="avatarTitle">Tu avatar</div>
   <div class="builder">
     <svg id="avatarSvg" width="160" height="220" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 8px 24px #0008)">
 
@@ -157,7 +157,7 @@
 
     <div class="opts">
       <div class="opt-box">
-        <span class="opt-label">Piel</span>
+        <span class="opt-label" data-i18n="labelSkin">Piel</span>
         <div class="swatches">
           <div class="swatch on"  style="background:#d4c9b8" onclick="setSkin('#d4c9b8',this)"></div>
           <div class="swatch"     style="background:#e8c89a" onclick="setSkin('#e8c89a',this)"></div>
@@ -167,7 +167,7 @@
         </div>
       </div>
       <div class="opt-box">
-        <span class="opt-label">Remera</span>
+        <span class="opt-label" data-i18n="labelShirt">Remera</span>
         <div class="swatches">
           <div class="swatch on"  style="background:#8a3a2e" onclick="setShirt('#8a3a2e',this)"></div>
           <div class="swatch"     style="background:#6b7a3a" onclick="setShirt('#6b7a3a',this)"></div>
@@ -177,7 +177,7 @@
         </div>
       </div>
       <div class="opt-box">
-        <span class="opt-label">Color de pelo</span>
+        <span class="opt-label" data-i18n="labelHairColor">Color de pelo</span>
         <div class="swatches">
           <div class="swatch on"  style="background:#1a1a1a" onclick="setHairColor('#1a1a1a',this)"></div>
           <div class="swatch"     style="background:#6b3a1f" onclick="setHairColor('#6b3a1f',this)"></div>
@@ -187,7 +187,7 @@
         </div>
       </div>
       <div class="opt-box">
-        <span class="opt-label">Color de ojos</span>
+        <span class="opt-label" data-i18n="labelEyeColor">Color de ojos</span>
         <div class="swatches">
           <div class="swatch on"  style="background:#1a1a1a" onclick="setEye('#1a1a1a',this)"></div>
           <div class="swatch"     style="background:#6b3a1f" onclick="setEye('#6b3a1f',this)"></div>
@@ -197,28 +197,28 @@
         </div>
       </div>
       <div class="opt-box">
-        <span class="opt-label">Estilo de pelo</span>
+        <span class="opt-label" data-i18n="labelHairStyle">Estilo de pelo</span>
         <div class="tagbtns">
-          <button class="tagbtn on" onclick="setHairStyle('long',this)">Largo</button>
-          <button class="tagbtn"    onclick="setHairStyle('short',this)">Corto</button>
-          <button class="tagbtn"    onclick="setHairStyle('curly',this)">Rizado</button>
-          <button class="tagbtn"    onclick="setHairStyle('flogger',this)">Flogger</button>
-          <button class="tagbtn"    onclick="setHairStyle('bald',this)">Sin pelo</button>
+          <button class="tagbtn on" onclick="setHairStyle('long',this)" data-i18n="hairLong">Largo</button>
+          <button class="tagbtn"    onclick="setHairStyle('short',this)" data-i18n="hairShort">Corto</button>
+          <button class="tagbtn"    onclick="setHairStyle('curly',this)" data-i18n="hairCurly">Rizado</button>
+          <button class="tagbtn"    onclick="setHairStyle('flogger',this)" data-i18n="hairFlogger">Flogger</button>
+          <button class="tagbtn"    onclick="setHairStyle('bald',this)" data-i18n="hairBald">Sin pelo</button>
         </div>
       </div>
       <div class="opt-box">
-        <span class="opt-label">Género</span>
+        <span class="opt-label" data-i18n="labelGender">Género</span>
         <div class="tagbtns">
-          <button class="tagbtn on" onclick="setGender('m',this)">Masculino</button>
-          <button class="tagbtn"    onclick="setGender('f',this)">Femenino</button>
+          <button class="tagbtn on" onclick="setGender('m',this)" data-i18n="genderMale">Masculino</button>
+          <button class="tagbtn"    onclick="setGender('f',this)" data-i18n="genderFemale">Femenino</button>
         </div>
       </div>
       <div class="opt-box full">
-        <span class="opt-label">Tu nombre</span>
-        <input class="name-inp" id="avatarName" type="text" placeholder="¿Cómo te llamás?" maxlength="22"/>
+        <span class="opt-label" data-i18n="labelName">Tu nombre</span>
+        <input class="name-inp" id="avatarName" type="text" placeholder="¿Cómo te llamás?" maxlength="22" data-i18n-placeholder="namePlaceholder"/>
       </div>
     </div>
-    <button class="btn" onclick="goToCounter()">IR AL MOSTRADOR →</button>
+    <button class="btn" onclick="goToCounter()" data-i18n="btnGoCounter">IR AL MOSTRADOR →</button>
   </div>
 </div>
 
@@ -231,8 +231,8 @@
   TU AVATAR (derecha): cabeza cx=300 cy=196 rx=32 ry=36
 -->
 <div class="screen" id="s-counter">
-  <button class="btn-ghost btn-back" onclick="goTo('s-avatar')">← atrás</button>
-  <div class="big-title" style="font-size:32px">El Mostrador</div>
+  <button class="btn-ghost btn-back" onclick="goTo('s-avatar')" data-i18n="btnBackArrow">← atrás</button>
+  <div class="big-title" style="font-size:32px" data-i18n="counterTitle">El Mostrador</div>
 
   <svg viewBox="0 0 400 330" xmlns="http://www.w3.org/2000/svg"
        style="width:400px;height:330px;max-width:96vw;filter:drop-shadow(0 12px 36px #000a)">
@@ -243,8 +243,8 @@
     <rect x="150" y="10" width="210" height="56" rx="9" fill="#ede8dc" stroke="#3a2010" stroke-width="1.5"/>
     <polygon points="168,66 184,66 176,80" fill="#ede8dc" stroke="#3a2010" stroke-width="1.5" stroke-linejoin="round"/>
     <polygon points="169,66 183,66 176,79" fill="#ede8dc"/>
-    <text x="255" y="35" font-family="'Special Elite',monospace" font-size="12" fill="#2a1a10" text-anchor="middle">¿Querés una sonrisa?</text>
-    <text x="255" y="55" font-family="'Special Elite',monospace" font-size="12" fill="#2a1a10" text-anchor="middle">Es completamente gratis 😊</text>
+    <text x="255" y="35" font-family="'Special Elite',monospace" font-size="12" fill="#2a1a10" text-anchor="middle" data-i18n="bubbleQ">¿Querés una sonrisa?</text>
+    <text x="255" y="55" font-family="'Special Elite',monospace" font-size="12" fill="#2a1a10" text-anchor="middle" data-i18n="bubbleA">Es completamente gratis 😊</text>
 
     <!-- ══ VENDEDOR — cuello primero, después torso encima ══ -->
     <!-- cuello vendedor (corto, pegado a la cabeza) -->
@@ -333,13 +333,13 @@
 
   </svg>
 
-  <p class="counter-msg" id="counterMsg">
+  <p class="counter-msg" id="counterMsg" data-i18n-html="counterMsgDefault">
     El imprimidor te mira con su sonrisa.<br>
     <em>Es amable. No cobra nada.</em>
   </p>
   <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
-    <button class="btn" onclick="getSmile()">😄 QUIERO MI SONRISA</button>
-    <button class="btn-ghost" style="font-size:14px;padding:12px 20px" onclick="declineSmile()">No, gracias</button>
+    <button class="btn" onclick="getSmile()" data-i18n="btnGetSmile">😄 QUIERO MI SONRISA</button>
+    <button class="btn-ghost" style="font-size:14px;padding:12px 20px" onclick="declineSmile()" data-i18n="btnDecline">No, gracias</button>
   </div>
 </div>
 
@@ -418,20 +418,20 @@
 
   <div class="result-name" id="resName"></div>
   <div class="result-sub"  id="resSub"></div>
-  <p class="result-note">
+  <p class="result-note" data-i18n-html="resultNote">
     La impresora hizo un ruidito.<br>
     El imprimidor asintió con su propia sonrisa.<br>
     <em>Llevátela. Es tuya.</em>
   </p>
   <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px">
-    <button class="btn" onclick="reset()">← VOLVER AL INICIO</button>
+    <button class="btn" onclick="reset()" data-i18n="btnHome">← VOLVER AL INICIO</button>
     <button class="btn" onclick="downloadSmile()" style="display:inline-flex;align-items:center;gap:6px">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
         <polyline points="7 10 12 15 17 10"/>
         <line x1="12" y1="15" x2="12" y2="3"/>
       </svg>
-      GUARDAR
+      <span data-i18n="btnSave">GUARDAR</span>
     </button>
     <a href="https://www.instagram.com/srcundo" target="_blank" rel="noopener noreferrer" class="btn" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;background:#e0d0a8;color:#1a1a1a">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0">
@@ -442,7 +442,7 @@
       SRCUNDO
     </a>
   </div>
-  <p style="font-size:12px;color:#9abfaa;text-align:center;max-width:380px;margin-top:14px;line-height:1.6;letter-spacing:1px">
+  <p style="font-size:12px;color:#9abfaa;text-align:center;max-width:380px;margin-top:14px;line-height:1.6;letter-spacing:1px" data-i18n-html="shareInvite">
     Si querés, compartí tu sonrisa y etiquetame en
     <a href="https://www.instagram.com/srcundo" target="_blank" rel="noopener noreferrer" style="color:#e0d0a8;text-decoration:none;border-bottom:1px dotted #e0d0a880">@srcundo</a>.<br>
     <em style="color:#8fad98">La resubo a las historias.</em>
@@ -452,6 +452,251 @@
 
 
 <script>
+/* ══════════════════════════════════════════════════════
+   I18n — Detección de idioma del navegador
+   Soporta: español (default), inglés, portugués
+══════════════════════════════════════════════════════ */
+const I18N = {
+  es: {
+    pageTitle: 'Imprimidor de Sonrisas™',
+    appTitle: 'Imprimidor<br>de Sonrisas™',
+    subtitle: 'servicio emocional gratuito',
+    welcomeMsg: '¿Hoy no te sale sonreír?<br>No hay problema.<br><em>Te imprimimos una.</em>',
+    btnCreate: 'CREAR MI AVATAR',
+    footerNote: '* sin cargo. el imprimidor es buena gente.',
+    developedBy: 'desarrollado por',
+    btnBack: '← volver',
+    btnBackArrow: '← atrás',
+    avatarTitle: 'Tu avatar',
+    counterTitle: 'El Mostrador',
+    labelSkin: 'Piel',
+    labelShirt: 'Remera',
+    labelHairColor: 'Color de pelo',
+    labelEyeColor: 'Color de ojos',
+    labelHairStyle: 'Estilo de pelo',
+    labelGender: 'Género',
+    labelName: 'Tu nombre',
+    namePlaceholder: '¿Cómo te llamás?',
+    namePlaceholderError: '¡Poné tu nombre primero!',
+    hairLong: 'Largo',
+    hairShort: 'Corto',
+    hairCurly: 'Rizado',
+    hairFlogger: 'Flogger',
+    hairBald: 'Sin pelo',
+    genderMale: 'Masculino',
+    genderFemale: 'Femenino',
+    btnGoCounter: 'IR AL MOSTRADOR →',
+    bubbleQ: '¿Querés una sonrisa?',
+    bubbleA: 'Es completamente gratis 😊',
+    counterMsgDefault: 'El imprimidor te mira con su sonrisa.<br><em>Es amable. No cobra nada.</em>',
+    counterMsgPersonal: (n) => `El imprimidor te mira con su sonrisa.<br><em>"Hola <strong>${n}</strong>. ¿Querés una sonrisa? Es gratis."</em>`,
+    btnGetSmile: '😄 QUIERO MI SONRISA',
+    btnDecline: 'No, gracias',
+    resultPhrase: (n) => `${n} está bien ahora`,
+    resultNote: 'La impresora hizo un ruidito.<br>El imprimidor asintió con su propia sonrisa.<br><em>Llevátela. Es tuya.</em>',
+    btnHome: '← VOLVER AL INICIO',
+    btnSave: 'GUARDAR',
+    shareInvite: 'Las sonrisas van a ser guardadas y resubidas a las historias de <a href="https://www.instagram.com/srcundo" target="_blank" rel="noopener noreferrer" style="color:#e0d0a8;text-decoration:none;border-bottom:1px dotted #e0d0a880">@srcundo</a>.',
+    saveGenerating: 'Generando...',
+    saveSuccess: '✓ ¡Lista!',
+    saveError: 'Error :(',
+    saveInApp: 'Mantené ↓ y "Guardar imagen"',
+    inAppAlert: 'Tu navegador bloqueó la descarga.\n\nPara guardar la imagen:\n1. Abrí esta página en Safari o Chrome (los 3 puntitos arriba a la derecha → "Abrir en navegador")\n2. Volvé a apretar GUARDAR',
+    footerSig: 'IMPRIMIDOR DE SONRISAS  -  @srcundo',
+    subs: [
+      '✦  sos fuerte, vos podes  ✦',
+      '✦  que tus dientes torcidos no te impidan sonreir  ✦',
+      '✦  tus acciones mueven estrellas  ✦',
+      '✦  espero que dure, al menos un ratito  ✦',
+      '✦  a pesar de todo, sigues siendo tu  ✦',
+      '✦  eres muy importante, no lo olvides  ✦',
+      '✦  mereces sonreir, te quiero mucho  ✦',
+      '✦  que nunca se apague tu luz  ✦',
+      '✦  que nunca falten tus sonrisas  ✦',
+      '✦  gracias por confiar en mi servicio  ✦',
+      '✦  disfrutala  ✦',
+      '✦  plin plin  ✦',
+      '✦  es solo tuya  ✦',
+      '✦  que dure lo que tenga que durar  ✦',
+      '✦  el imprimidor te ama  ✦',
+      '✦  no estás solo  ✦',
+      '✦  volvé cuando quieras  ✦',
+      '✦  acá vamos a estar  ✦'
+    ],
+    defaultSub: '✦  todo va a estar bien  ✦'
+  },
+  en: {
+    pageTitle: 'The Smile Printer™',
+    appTitle: 'The Smile<br>Printer™',
+    subtitle: 'free emotional service',
+    welcomeMsg: "Can't smile today?<br>No problem.<br><em>We'll print you one.</em>",
+    btnCreate: 'CREATE MY AVATAR',
+    footerNote: '* no charge. the printer is a good person.',
+    developedBy: 'developed by',
+    btnBack: '← back',
+    btnBackArrow: '← back',
+    avatarTitle: 'Your avatar',
+    counterTitle: 'The Counter',
+    labelSkin: 'Skin',
+    labelShirt: 'Shirt',
+    labelHairColor: 'Hair color',
+    labelEyeColor: 'Eye color',
+    labelHairStyle: 'Hair style',
+    labelGender: 'Gender',
+    labelName: 'Your name',
+    namePlaceholder: "What's your name?",
+    namePlaceholderError: 'Put your name first!',
+    hairLong: 'Long',
+    hairShort: 'Short',
+    hairCurly: 'Curly',
+    hairFlogger: 'Emo',
+    hairBald: 'Bald',
+    genderMale: 'Male',
+    genderFemale: 'Female',
+    btnGoCounter: 'GO TO THE COUNTER →',
+    bubbleQ: 'Want a smile?',
+    bubbleA: "It's completely free 😊",
+    counterMsgDefault: 'The printer looks at you with their smile.<br><em>They\'re kind. They don\'t charge anything.</em>',
+    counterMsgPersonal: (n) => `The printer looks at you with their smile.<br><em>"Hi <strong>${n}</strong>. Want a smile? It's free."</em>`,
+    btnGetSmile: '😄 I WANT MY SMILE',
+    btnDecline: 'No, thanks',
+    resultPhrase: (n) => `${n} is okay now`,
+    resultNote: 'The printer made a little sound.<br>The smile printer nodded with their own smile.<br><em>Take it. It\'s yours.</em>',
+    btnHome: '← BACK TO START',
+    btnSave: 'SAVE',
+    shareInvite: 'Smiles will be saved and re-shared on <a href="https://www.instagram.com/srcundo" target="_blank" rel="noopener noreferrer" style="color:#e0d0a8;text-decoration:none;border-bottom:1px dotted #e0d0a880">@srcundo</a>\'s stories.',
+    saveGenerating: 'Generating...',
+    saveSuccess: '✓ Ready!',
+    saveError: 'Error :(',
+    saveInApp: 'Hold ↓ and "Save image"',
+    inAppAlert: 'Your browser blocked the download.\n\nTo save the image:\n1. Open this page in Safari or Chrome (the three dots at the top right → "Open in browser")\n2. Hit SAVE again',
+    footerSig: 'THE SMILE PRINTER  -  @srcundo',
+    subs: [
+      '✦  you are strong, you can do this  ✦',
+      "✦  don't let your crooked teeth stop you from smiling  ✦",
+      '✦  your actions move stars  ✦',
+      '✦  hope it lasts, at least a little while  ✦',
+      '✦  despite everything, you are still you  ✦',
+      "✦  you matter, don't forget it  ✦",
+      '✦  you deserve to smile, I love you  ✦',
+      '✦  may your light never fade  ✦',
+      '✦  may your smiles never run out  ✦',
+      '✦  thanks for trusting my service  ✦',
+      '✦  enjoy it  ✦',
+      '✦  ding ding  ✦',
+      '✦  it\'s only yours  ✦',
+      '✦  may it last as long as it has to  ✦',
+      '✦  the printer loves you  ✦',
+      "✦  you're not alone  ✦",
+      '✦  come back whenever you want  ✦',
+      "✦  we'll be here  ✦"
+    ],
+    defaultSub: "✦  it's all gonna be okay  ✦"
+  },
+  pt: {
+    pageTitle: 'Impressor de Sorrisos™',
+    appTitle: 'Impressor<br>de Sorrisos™',
+    subtitle: 'serviço emocional gratuito',
+    welcomeMsg: 'Hoje não consegue sorrir?<br>Sem problema.<br><em>A gente imprime um pra você.</em>',
+    btnCreate: 'CRIAR MEU AVATAR',
+    footerNote: '* sem custo. o impressor é gente boa.',
+    developedBy: 'desenvolvido por',
+    btnBack: '← voltar',
+    btnBackArrow: '← voltar',
+    avatarTitle: 'Seu avatar',
+    counterTitle: 'O Balcão',
+    labelSkin: 'Pele',
+    labelShirt: 'Camiseta',
+    labelHairColor: 'Cor do cabelo',
+    labelEyeColor: 'Cor dos olhos',
+    labelHairStyle: 'Estilo do cabelo',
+    labelGender: 'Gênero',
+    labelName: 'Seu nome',
+    namePlaceholder: 'Como você se chama?',
+    namePlaceholderError: 'Coloca seu nome primeiro!',
+    hairLong: 'Longo',
+    hairShort: 'Curto',
+    hairCurly: 'Cacheado',
+    hairFlogger: 'Emo',
+    hairBald: 'Careca',
+    genderMale: 'Masculino',
+    genderFemale: 'Feminino',
+    btnGoCounter: 'IR AO BALCÃO →',
+    bubbleQ: 'Quer um sorriso?',
+    bubbleA: 'É totalmente grátis 😊',
+    counterMsgDefault: 'O impressor te olha com seu sorriso.<br><em>É gentil. Não cobra nada.</em>',
+    counterMsgPersonal: (n) => `O impressor te olha com seu sorriso.<br><em>"Oi <strong>${n}</strong>. Quer um sorriso? É grátis."</em>`,
+    btnGetSmile: '😄 QUERO MEU SORRISO',
+    btnDecline: 'Não, obrigado',
+    resultPhrase: (n) => `${n} está bem agora`,
+    resultNote: 'A impressora fez um barulhinho.<br>O impressor concordou com seu próprio sorriso.<br><em>Leva. É seu.</em>',
+    btnHome: '← VOLTAR AO INÍCIO',
+    btnSave: 'SALVAR',
+    shareInvite: 'Os sorrisos serão salvos e repostados nos stories de <a href="https://www.instagram.com/srcundo" target="_blank" rel="noopener noreferrer" style="color:#e0d0a8;text-decoration:none;border-bottom:1px dotted #e0d0a880">@srcundo</a>.',
+    saveGenerating: 'Gerando...',
+    saveSuccess: '✓ Pronto!',
+    saveError: 'Erro :(',
+    saveInApp: 'Segure ↓ e "Salvar imagem"',
+    inAppAlert: 'Seu navegador bloqueou o download.\n\nPara salvar a imagem:\n1. Abra esta página no Safari ou Chrome (os três pontinhos acima à direita → "Abrir no navegador")\n2. Aperte SALVAR de novo',
+    footerSig: 'IMPRESSOR DE SORRISOS  -  @srcundo',
+    subs: [
+      '✦  você é forte, você consegue  ✦',
+      '✦  que seus dentes tortos não impeçam você de sorrir  ✦',
+      '✦  suas ações movem estrelas  ✦',
+      '✦  espero que dure, pelo menos um pouquinho  ✦',
+      '✦  apesar de tudo, você ainda é você  ✦',
+      '✦  você é muito importante, não esqueça  ✦',
+      '✦  você merece sorrir, te amo muito  ✦',
+      '✦  que nunca se apague sua luz  ✦',
+      '✦  que nunca faltem seus sorrisos  ✦',
+      '✦  obrigado por confiar no meu serviço  ✦',
+      '✦  aproveita  ✦',
+      '✦  plim plim  ✦',
+      '✦  é só seu  ✦',
+      '✦  que dure o quanto tiver que durar  ✦',
+      '✦  o impressor te ama  ✦',
+      '✦  você não está sozinho  ✦',
+      '✦  volte quando quiser  ✦',
+      '✦  vamos estar aqui  ✦'
+    ],
+    defaultSub: '✦  vai ficar tudo bem  ✦'
+  }
+};
+
+// Detectar idioma del navegador
+function detectLang() {
+  const lang = (navigator.language || navigator.userLanguage || 'es').toLowerCase();
+  if (lang.startsWith('pt')) return 'pt';
+  if (lang.startsWith('en')) return 'en';
+  return 'es'; // default español
+}
+
+let currentLang = detectLang();
+function t(key) {
+  return (I18N[currentLang] && I18N[currentLang][key]) || I18N.es[key] || key;
+}
+
+// Aplica todas las traducciones al DOM
+function applyI18n() {
+  document.title = t('pageTitle');
+  document.documentElement.lang = currentLang;
+  // Texto plano
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = t(el.dataset.i18n);
+  });
+  // HTML (con tags)
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    el.innerHTML = t(el.dataset.i18nHtml);
+  });
+  // Placeholders de inputs
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    el.placeholder = t(el.dataset.i18nPlaceholder);
+  });
+}
+
+// Aplicar al cargar
+document.addEventListener('DOMContentLoaded', applyI18n);
+
 const av = { skin:'#d4c9b8', shirt:'#8a3a2e', hair:'#1a1a1a', eye:'#1a1a1a', hairStyle:'long', gender:'m', name:'' };
 
 function goTo(id) {
@@ -933,7 +1178,7 @@ function goToCounter() {
     inp.classList.remove('error');
     void inp.offsetWidth;
     inp.classList.add('error');
-    inp.placeholder = '¡Poné tu nombre primero!';
+    inp.placeholder = t('namePlaceholderError');
     inp.focus();
     return;
   }
@@ -957,8 +1202,7 @@ function goToCounter() {
     ucHair.setAttribute('fill', av.hair);
   }
 
-  document.getElementById('counterMsg').innerHTML =
-    `El imprimidor te mira con su sonrisa.<br><em>"Hola <strong>${n}</strong>. ¿Querés una sonrisa? Es gratis."</em>`;
+  document.getElementById('counterMsg').innerHTML = t('counterMsgPersonal')(n);
 
   goTo('s-counter');
   setTimeout(() => {
@@ -972,7 +1216,7 @@ function goToCounter() {
 function goBackFromAvatar() {
   const inp = document.getElementById('avatarName');
   inp.classList.remove('error');
-  inp.placeholder = '¿Cómo te llamás?';
+  inp.placeholder = t('namePlaceholder');
   goTo('s-welcome');
 }
 
@@ -1013,21 +1257,12 @@ function getSmile() {
   setTimeout(() => {
     const nm = document.getElementById('resName');
     const sb = document.getElementById('resSub');
-    // Frase principal: siempre la misma
-    nm.textContent = `${n} está bien ahora`;
+    // Frase principal: siempre la misma (con nombre, traducida)
+    nm.textContent = t('resultPhrase')(n);
     nm.style.animation = 'reveal .8s cubic-bezier(.34,1.56,.64,1) forwards';
     nm.style.opacity = '1';
-    // Subtítulo aleatorio
-    const subs = [
-      '✦  todo va a estar bien  ✦',
-      '✦  guardala donde necesites  ✦',
-      '✦  es solo tuya  ✦',
-      '✦  que dure lo que tenga que durar  ✦',
-      '✦  el imprimidor ya te conoce  ✦',
-      '✦  no estás solo  ✦',
-      '✦  volvé cuando quieras  ✦',
-      '✦  acá vamos a estar  ✦'
-    ];
+    // Subtítulo aleatorio del idioma actual
+    const subs = t('subs');
     sb.textContent = subs[Math.floor(Math.random() * subs.length)];
     sb.style.opacity = '1';
     sb.style.transition = 'opacity .6s .3s ease';
@@ -1064,7 +1299,7 @@ function reset() {
   document.getElementById('resSub').textContent = '';
   document.getElementById('resSub').style.opacity = '0';
   const inp = document.getElementById('avatarName');
-  inp.value = ''; inp.placeholder = '¿Cómo te llamás?'; inp.classList.remove('error');
+  inp.value = ''; inp.placeholder = t('namePlaceholder'); inp.classList.remove('error');
   goTo('s-welcome');
 }
 /* ── Detectar navegadores in-app (Instagram, Facebook, TikTok) ─── */
@@ -1089,9 +1324,9 @@ function fitFontSize(ctx, text, maxWidth, baseFontSize, fontFamily) {
 async function generateSmilePNG(opts = {}) {
   const svgEl = document.querySelector('#s-result svg');
   const userName = (av.name || 'tu sonrisa').trim();
-  const nameText = `${userName} está bien ahora`;
+  const nameText = t('resultPhrase')(userName);
   let sub = opts.subOverride || document.getElementById('resSub').textContent;
-  if (!sub || !sub.trim()) sub = '✦  todo va a estar bien  ✦';
+  if (!sub || !sub.trim()) sub = t('defaultSub');
 
   // Clonar SVG para no afectar el DOM
   const svgClone = svgEl.cloneNode(true);
@@ -1160,7 +1395,7 @@ async function generateSmilePNG(opts = {}) {
 
   ctx.fillStyle = '#ffffff80';
   ctx.font = '12px monospace';
-  ctx.fillText('IMPRIMIDOR DE SONRISAS  -  @srcundo', W/2, H - 22);
+  ctx.fillText(t('footerSig'), W/2, H - 22);
 
   return canvas.toDataURL('image/png');
 }
@@ -1198,7 +1433,7 @@ async function uploadSmileToImgBB() {
 async function downloadSmile() {
   const btn = event.currentTarget;
   const originalContent = btn.innerHTML;
-  btn.innerHTML = 'Generando...';
+  btn.innerHTML = t('saveGenerating');
   btn.disabled = true;
 
   try {
@@ -1215,12 +1450,12 @@ async function downloadSmile() {
       const blob = new Blob([ab], { type: 'image/png' });
       const blobUrl = URL.createObjectURL(blob);
       const opened = window.open(blobUrl, '_blank');
-      btn.innerHTML = 'Mantené ↓ y "Guardar imagen"';
+      btn.innerHTML = t('saveInApp');
       setTimeout(() => {
         btn.innerHTML = originalContent;
         btn.disabled = false;
         if (!opened) {
-          alert('Tu navegador bloqueó la descarga.\n\nPara guardar la imagen:\n1. Abrí esta página en Safari o Chrome (los 3 puntitos arriba a la derecha → "Abrir en navegador")\n2. Volvé a apretar GUARDAR');
+          alert(t('inAppAlert'));
         }
       }, 3000);
       return;
@@ -1233,14 +1468,14 @@ async function downloadSmile() {
     link.click();
     document.body.removeChild(link);
 
-    btn.innerHTML = '✓ ¡Lista!';
+    btn.innerHTML = t('saveSuccess');
     setTimeout(() => {
       btn.innerHTML = originalContent;
       btn.disabled = false;
     }, 1500);
   } catch (err) {
     console.error('Error al guardar:', err && err.message ? err.message : err);
-    btn.innerHTML = 'Error :(';
+    btn.innerHTML = t('saveError');
     setTimeout(() => {
       btn.innerHTML = originalContent;
       btn.disabled = false;
